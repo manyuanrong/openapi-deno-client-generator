@@ -1,3 +1,4 @@
+export const TEMPLATE_CODE = `
 export class ApiClient {
   constructor(private baseUrl: string, private fetch = globalThis.fetch) {}
 
@@ -8,9 +9,9 @@ export class ApiClient {
     body: any
   ): Promise<any> {
     for (const parameter in parameters) {
-      path = path.replace(`{${parameter}}`, parameters[parameter]);
+      path = path.replace("{" + parameter + "}", parameters[parameter]);
     }
-    const response = await this.fetch(`${this.baseUrl}/${path}`, {
+    const response = await this.fetch(this.baseUrl + path, {
       method,
       headers: { "Content-Type": "application/json" },
       body: method != "GET" ? JSON.stringify(body) : undefined,
@@ -23,4 +24,4 @@ export class ApiClient {
   }
 
   public placeholder = "";
-}
+}`;

@@ -1,18 +1,18 @@
+import { parseArgs } from "jsr:@std/cli";
 import { generate } from "./generate.ts";
 
-const specUrl = Deno.args[0];
-const encoder = new TextEncoder();
-let spec;
+const { spec, out = "./client.ts" } = parseArgs(Deno.args);
+let data;
 
-if (specUrl === undefined) {
+if (spec === undefined) {
   console.error("Please provide a spec url as an argument");
   Deno.exit(1);
 }
 
-if (specUrl.startsWith("http")) {
-  spec = await (await fetch(specUrl)).json();
+if (spec.startsWith("http")) {
+  data = await (await fetch(spec)).json();
 } else {
-  spec = JSON.parse(await Deno.readTextFile(specUrl));
+  data = JSON.parse(await Deno.readTextFile(spec));
 }
 
-Deno.stdout.write(encoder.encode(generate(spec)));
+await Deno.writeTextFile(out, generate(data));

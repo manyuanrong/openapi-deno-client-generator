@@ -5,7 +5,7 @@ Generate an API client through OpenApi spec, which can be used as a cli or as a 
 # Use as cli
 
 ```sh
-deno run -A https://xxx.xxx.xxx/you_spec_json_url > client.ts
+deno run -A https://deno.land/x/openapi_client_generator/cli.ts --spec https://xxx.xxx.xxx/you_spec_json_url --out client.ts
 ```
 
 # Use as Koa middleware
