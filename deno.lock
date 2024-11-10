@@ -4,13 +4,15 @@
     "jsr:@cliffy/flags@1.0.0-rc.7": "1.0.0-rc.7",
     "jsr:@std/assert@1": "1.0.6",
     "jsr:@std/cli@*": "1.0.6",
+    "jsr:@std/cli@1.0.6": "1.0.6",
     "jsr:@std/internal@^1.0.4": "1.0.4",
     "jsr:@std/text@~1.0.7": "1.0.8",
     "npm:@types/koa@^2.15.0": "2.15.0",
     "npm:@types/node@*": "22.5.4",
     "npm:koa@^2.15.0": "2.15.3",
     "npm:openapi3-ts@*": "4.4.0",
-    "npm:openapi3-ts@4.0.0": "4.0.0"
+    "npm:openapi3-ts@4.0.0": "4.0.0",
+    "npm:openapi3-ts@4.4.0": "4.4.0"
   },
   "jsr": {
     "@cliffy/flags@1.0.0-rc.7": {
