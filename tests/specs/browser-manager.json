@@ -1,0 +1,172 @@
+{
+  "components": {
+    "schemas": {
+      "BrowserLeaseOutput": {
+        "properties": {
+          "leaseId": {
+            "type": "string"
+          },
+          "cdp": {
+            "type": "string"
+          },
+          "cdp-public": {
+            "type": "string"
+          },
+          "vnc": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          },
+          "imageVersion": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "leaseId",
+          "cdp",
+          "cdp-public",
+          "vnc",
+          "token",
+          "imageVersion"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "iMean browser-manager",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/version": {
+      "get": {
+        "operationId": "VersionController.version",
+        "responses": {
+          "200": {
+            "content": {
+              "text/html; charset=utf-8": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Version",
+        "tags": ["Version"]
+      }
+    },
+    "/api/count": {
+      "get": {
+        "operationId": "BrowserController.getCount",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "获取当前实例数量",
+        "tags": ["Browser"]
+      }
+    },
+    "/api/lease": {
+      "post": {
+        "operationId": "BrowserController.lease",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          },
+          "description": "",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrowserLeaseOutput"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "summary": "租用实例",
+        "tags": ["Browser"]
+      }
+    },
+    "/api/lease/{leaseId}/{token}/renew": {
+      "put": {
+        "operationId": "BrowserController.renew",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leaseId",
+            "required": true,
+            "schema": {
+              "pattern": "[^\\/#\\?]+?",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "pattern": "[^\\/#\\?]+?",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "续租实例",
+        "tags": ["Browser"]
+      }
+    },
+    "/api/lease/{leaseId}/{token}": {
+      "delete": {
+        "operationId": "BrowserController.release",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "leaseId",
+            "required": true,
+            "schema": {
+              "pattern": "[^\\/#\\?]+?",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "pattern": "[^\\/#\\?]+?",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "释放实例",
+        "tags": ["Browser"]
+      }
+    }
+  }
+}

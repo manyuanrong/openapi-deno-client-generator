@@ -1,0 +1,107 @@
+{
+  "components": {
+    "schemas": {
+      "LogInput": {
+        "properties": {
+          "timestamp": {
+            "type": "number"
+          },
+          "category": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "processId": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string"
+          },
+          "msg": {
+            "type": "string"
+          }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "category",
+          "service",
+          "level",
+          "userId",
+          "conversationId",
+          "processId",
+          "event"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "iMean log-system",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/version": {
+      "get": {
+        "operationId": "VersionController.version",
+        "responses": {
+          "200": {
+            "content": {
+              "text/html; charset=utf-8": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "Version",
+        "tags": ["Version"]
+      }
+    },
+    "/api/log": {
+      "post": {
+        "operationId": "LogController.create",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {}
+            },
+            "description": "Successful response"
+          }
+        },
+        "summary": "发送日志",
+        "tags": ["Log"],
+        "requestBody": {
+          "description": "日志对象",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogInput"
+              },
+              "example": {
+                "timestamp": 1723107411899,
+                "category": "conversation",
+                "service": "imean-worker",
+                "level": "info",
+                "userId": "userId",
+                "conversationId": "conversationId",
+                "processId": "processId",
+                "event": "event",
+                "msg": "message(字符串或者对象)"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
