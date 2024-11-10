@@ -1,11 +1,11 @@
 import {
-  OpenAPIObject,
-  OperationObject,
-  PathsObject,
-  ReferenceObject,
-  SchemaObject,
+  type OpenAPIObject,
+  type OperationObject,
+  type PathsObject,
+  type ReferenceObject,
+  type SchemaObject,
   isReferenceObject,
-} from "npm:openapi3-ts/oas31";
+} from "npm:openapi3-ts@4.0.0/oas31";
 import { TEMPLATE_CODE } from "./template-client.ts";
 
 export function getSchemaObjectCode(
@@ -129,7 +129,7 @@ export function getSchemaClientCode(paths: PathsObject) {
   );
 }
 
-export function generate(spec: OpenAPIObject) {
+export function generate(spec: OpenAPIObject): string {
   const schemas = getSchemaTypesCode(spec.components?.schemas ?? {});
   const client = getSchemaClientCode(spec.paths ?? {});
   return (

@@ -1,4 +1,11 @@
 {
+  "name": "@imean/openapi-client-generator",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./mod.ts",
+    "./koa": "./koa.ts",
+    "./cli": "./cli.ts"
+  },
   "tasks": {
     "dev": "deno run --watch main.ts"
   },

@@ -1,4 +1,4 @@
-import { parseArgs } from "jsr:@std/cli";
+import { parseArgs } from "jsr:@std/cli@1.0.6";
 import { generate } from "./generate.ts";
 
 const { spec, out = "./client.ts" } = parseArgs(Deno.args);

@@ -9,7 +9,8 @@
     "npm:@types/koa@^2.15.0": "2.15.0",
     "npm:@types/node@*": "22.5.4",
     "npm:koa@^2.15.0": "2.15.3",
-    "npm:openapi3-ts@*": "4.4.0"
+    "npm:openapi3-ts@*": "4.4.0",
+    "npm:openapi3-ts@4.0.0": "4.0.0"
   },
   "jsr": {
     "@cliffy/flags@1.0.0-rc.7": {
@@ -313,6 +314,12 @@
     },
     "only@0.0.2": {
       "integrity": "sha512-Fvw+Jemq5fjjyWz6CpKx6w9s7xxqo3+JCyM0WXWeCSOboZ8ABkyvP8ID4CZuChA/wxSx+XSJmdOm8rGVyJ1hdQ=="
+    },
+    "openapi3-ts@4.0.0": {
+      "integrity": "sha512-C2vpJAUcfvtmJDJ+16wBPHOzf7h5CRP0HBOmhYSl4QY0Sj4vSIg8Ex0tXXoEhS7HCOWdBb0c3AEnYTFENXrtKg==",
+      "dependencies": [
+        "yaml"
+      ]
     },
     "openapi3-ts@4.4.0": {
       "integrity": "sha512-9asTNB9IkKEzWMcHmVZE7Ts3kC9G7AFHfs8i7caD8HbI76gEjdkId4z/AkP83xdZsH7PLAnnbl47qZkXuxpArw==",
