@@ -16,14 +16,16 @@ Server side:
 import { useKoaApiClient } from "jsr:@imean/openapi-client-generator/koa";
 
 const app = new Koa();
-const spec = Deno.readFileSync("./spec.json", "utf8");
-app.use("/client.ts", useKoaApiClient(spec));
+const spec = Deno.readTextFileSync("./spec.json");
+app.use(useKoaApiClient("/client.ts", spec));
 app.listen(3000);
 ```
 
 Client side:
 
 ```ts
-import { ApiClient } from "http://127.0.0.1:3000/client.ts";
+import { ApiClient } from "http://127.0.0.1:3000/client.ts?cache=1";
 const client = new ApiClient();
 ```
+
+> ⚠️ The cache query parameter is optional. If the upstream server version changes, you can manually modify the cache value. Of course, you can replace it with any other parameter name, or you can use "deno cache --reload xxx" to update the cache dependency.

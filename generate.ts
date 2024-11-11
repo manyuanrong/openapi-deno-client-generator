@@ -84,7 +84,7 @@ export function getSchemaClientCode(paths: PathsObject) {
           );
         } else {
           body = getSchemaObjectCode(
-            operation.requestBody.content["application/json"].schema ?? {}
+            operation.requestBody.content["application/json"]?.schema ?? {}
           );
         }
       }
@@ -109,9 +109,14 @@ export function getSchemaClientCode(paths: PathsObject) {
         }
       }
 
-      code += `${summary}  async ${operationName}(${pathParams
-        .map(({ name, type }) => `${name}: ${type}`)
-        .join(", ")}${body ? "data: " + body : ""}): Promise<${responseType}> {
+      const paramList = [
+        pathParams.map(({ name, type }) => `${name}: ${type}`).join(", "),
+        body ? "data: " + body : "",
+      ]
+        .filter((p) => !!p.trim())
+        .join(", ");
+
+      code += `${summary}  async ${operationName}(${paramList}): Promise<${responseType}> {
     return await this.request(
       "${path}",
       "${method.toUpperCase()}",
