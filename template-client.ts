@@ -5,11 +5,15 @@ export class ApiClient {
   private async request(
     path: string,
     method: string,
-    parameters: Record<string, string>,
+    pathsParams: Record<string, string>,
+    queryParams: Record<string, any>,
     body: any
   ): Promise<any> {
-    for (const parameter in parameters) {
-      path = path.replace("{" + parameter + "}", parameters[parameter]);
+    for (const parameter in pathsParams) {
+      path = path.replace("{" + parameter + "}", pathsParams[parameter]);
+    }
+    if (Object.keys(queryParams).length > 0) {
+      path += "?" + new URLSearchParams(queryParams).toString();
     }
     const response = await this.fetch(this.baseUrl + path, {
       method,

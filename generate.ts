@@ -60,6 +60,7 @@ export function getSchemaClientCode(paths: PathsObject) {
       let summary = "";
       let responseType = "any";
       const pathParams: { name: string; type: string }[] = [];
+      const queryParams: { name: string; type: string }[] = [];
 
       if (operation.summary) {
         summary = `  /**\n   * ${operation.summary}\n   */\n`;
@@ -70,7 +71,15 @@ export function getSchemaClientCode(paths: PathsObject) {
           if (!isReferenceObject(parameter) && parameter.in === "path") {
             pathParams.push({
               name: parameter.name!,
-              type: (parameter.schema as SchemaObject).type as string,
+              type: getSchemaObjectCode(parameter.schema as SchemaObject),
+            });
+          } else if (
+            !isReferenceObject(parameter) &&
+            parameter.in === "query"
+          ) {
+            queryParams.push({
+              name: parameter.name!,
+              type: getSchemaObjectCode(parameter.schema as SchemaObject),
             });
           }
         }
@@ -109,18 +118,29 @@ export function getSchemaClientCode(paths: PathsObject) {
         }
       }
 
+      const allParams = [...pathParams, ...queryParams];
       const paramList = [
-        pathParams.map(({ name, type }) => `${name}: ${type}`).join(", "),
+        allParams.length
+          ? `params: { ${allParams
+              .map(({ name, type }) => `${name}: ${type}`)
+              .join(", ")} }`
+          : "",
         body ? "data: " + body : "",
       ]
         .filter((p) => !!p.trim())
         .join(", ");
 
       code += `${summary}  async ${operationName}(${paramList}): Promise<${responseType}> {
+    ${
+      allParams.length
+        ? `const { ${allParams.map(({ name }) => name).join(", ")} } = params;`
+        : ""
+    }
     return await this.request(
       "${path}",
       "${method.toUpperCase()}",
       {${pathParams.map(({ name }) => name).join(", ")}},
+      {${queryParams.map(({ name }) => name).join(", ")}},
       ${body ? "data" : "{}"}
     );
   };`;
