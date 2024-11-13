@@ -145,11 +145,14 @@ export class ApiClient {
     method: string,
     pathsParams: any,
     queryParams: any,
-    body: any
+    body: any,
   ): Promise<any> {
     for (const parameter in pathsParams) {
       path = path.replace("{" + parameter + "}", pathsParams[parameter]);
     }
+    Object.keys(queryParams).forEach(
+      (key) => queryParams[key] === undefined && delete queryParams[key],
+    );
     if (Object.keys(queryParams).length > 0) {
       path += "?" + new URLSearchParams(queryParams).toString();
     }
@@ -188,7 +191,7 @@ export class ApiClient {
       "GET",
       {},
       { conversationId, keyword, structureId, page, size },
-      {}
+      {},
     );
   }
 
@@ -207,7 +210,7 @@ export class ApiClient {
       "GET",
       {},
       { name, conversationId, creatorId, structureId },
-      {}
+      {},
     );
   }
 
@@ -221,7 +224,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -235,7 +238,7 @@ export class ApiClient {
       "DELETE",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -249,7 +252,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -258,7 +261,7 @@ export class ApiClient {
    */
   async insertRow(
     params: { sheetId: string },
-    data: InsertRowInput
+    data: InsertRowInput,
   ): Promise<Row> {
     const { sheetId } = params;
     return await this.request(
@@ -266,7 +269,7 @@ export class ApiClient {
       "POST",
       { sheetId },
       {},
-      data
+      data,
     );
   }
 
@@ -287,7 +290,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       { afterIndex, filters, sorter, page, size },
-      {}
+      {},
     );
   }
 
@@ -301,7 +304,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -315,7 +318,7 @@ export class ApiClient {
       "GET",
       { sheetId, rowId },
       {},
-      {}
+      {},
     );
   }
 
@@ -332,7 +335,7 @@ export class ApiClient {
       "DELETE",
       { sheetId, rowId },
       {},
-      {}
+      {},
     );
   }
 
@@ -360,7 +363,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -374,7 +377,7 @@ export class ApiClient {
       "GET",
       { sheetId },
       {},
-      {}
+      {},
     );
   }
 
@@ -383,7 +386,7 @@ export class ApiClient {
    */
   async uploadCSVAppend(
     params: { sheetId: string; creatorId: string },
-    data: any
+    data: any,
   ): Promise<any> {
     const { sheetId, creatorId } = params;
     return await this.request(
@@ -391,7 +394,7 @@ export class ApiClient {
       "POST",
       { sheetId },
       { creatorId },
-      data
+      data,
     );
   }
 
@@ -400,7 +403,7 @@ export class ApiClient {
    */
   async uploadAppendForS3(
     params: { sheetId: string },
-    data: UploadSheetInput
+    data: UploadSheetInput,
   ): Promise<any> {
     const { sheetId } = params;
     return await this.request(
@@ -408,7 +411,7 @@ export class ApiClient {
       "POST",
       { sheetId },
       {},
-      data
+      data,
     );
   }
 
@@ -417,7 +420,7 @@ export class ApiClient {
    */
   async uploadXLSX(
     params: { sheetId: string; creatorId: string },
-    data: any
+    data: any,
   ): Promise<any> {
     const { sheetId, creatorId } = params;
     return await this.request(
@@ -425,7 +428,7 @@ export class ApiClient {
       "POST",
       { sheetId },
       { creatorId },
-      data
+      data,
     );
   }
 
@@ -433,14 +436,14 @@ export class ApiClient {
    * 上传表格结构
    */
   async uploadStructure(
-    data: UploadStructureInput
+    data: UploadStructureInput,
   ): Promise<UploadStructureOutput> {
     return await this.request(
       "/datastore/sheets/upload/structure",
       "POST",
       {},
       {},
-      data
+      data,
     );
   }
 }

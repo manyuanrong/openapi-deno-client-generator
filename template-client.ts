@@ -12,6 +12,9 @@ export class ApiClient {
     for (const parameter in pathsParams) {
       path = path.replace("{" + parameter + "}", pathsParams[parameter]);
     }
+    Object.keys(queryParams).forEach(
+      (key) => queryParams[key] === undefined && delete queryParams[key]
+    );
     if (Object.keys(queryParams).length > 0) {
       path += "?" + new URLSearchParams(queryParams).toString();
     }

@@ -19,11 +19,14 @@ export class ApiClient {
     method: string,
     pathsParams: any,
     queryParams: any,
-    body: any
+    body: any,
   ): Promise<any> {
     for (const parameter in pathsParams) {
       path = path.replace("{" + parameter + "}", pathsParams[parameter]);
     }
+    Object.keys(queryParams).forEach(
+      (key) => queryParams[key] === undefined && delete queryParams[key],
+    );
     if (Object.keys(queryParams).length > 0) {
       path += "?" + new URLSearchParams(queryParams).toString();
     }
@@ -70,7 +73,7 @@ export class ApiClient {
       "PUT",
       { leaseId, token },
       {},
-      {}
+      {},
     );
   }
 
@@ -84,7 +87,7 @@ export class ApiClient {
       "DELETE",
       { leaseId, token },
       {},
-      {}
+      {},
     );
   }
 }

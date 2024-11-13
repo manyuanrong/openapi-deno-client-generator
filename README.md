@@ -1,6 +1,8 @@
 # OpenAPI to fetch API client
 
-Generate an API client through OpenApi spec, which can be used as a cli or as a middleware to provide a remote client entry that can be directly referenced by Deno
+Generate an API client through OpenApi spec, which can be used as a cli or as a
+middleware to provide a remote client entry that can be directly referenced by
+Deno
 
 # Use as cli
 
@@ -28,4 +30,7 @@ import { ApiClient } from "http://127.0.0.1:3000/client.ts?cache=1";
 const client = new ApiClient();
 ```
 
-> ⚠️ The cache query parameter is optional. If the upstream server version changes, you can manually modify the cache value. Of course, you can replace it with any other parameter name, or you can use "deno cache --reload xxx" to update the cache dependency.
+> ⚠️ The cache query parameter is optional. If the upstream server version
+> changes, you can manually modify the cache value. Of course, you can replace
+> it with any other parameter name, or you can use "deno cache --reload xxx" to
+> update the cache dependency.
