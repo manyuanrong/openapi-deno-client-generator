@@ -59,8 +59,12 @@ export function getSchemaClientCode(paths: PathsObject) {
       let body = "";
       let summary = "";
       let responseType = "any";
-      const pathParams: { name: string; type: string }[] = [];
-      const queryParams: { name: string; type: string }[] = [];
+      const pathParams: {
+        name: string;
+        type: string;
+        required: boolean;
+      }[] = [];
+      const queryParams: typeof pathParams = [];
 
       if (operation.summary) {
         summary = `  /**\n   * ${operation.summary}\n   */\n`;
@@ -71,6 +75,7 @@ export function getSchemaClientCode(paths: PathsObject) {
           if (!isReferenceObject(parameter) && parameter.in === "path") {
             pathParams.push({
               name: parameter.name!,
+              required: parameter.required ?? false,
               type: getSchemaObjectCode(parameter.schema as SchemaObject),
             });
           } else if (
@@ -79,6 +84,7 @@ export function getSchemaClientCode(paths: PathsObject) {
           ) {
             queryParams.push({
               name: parameter.name!,
+              required: parameter.required ?? false,
               type: getSchemaObjectCode(parameter.schema as SchemaObject),
             });
           }
@@ -122,7 +128,10 @@ export function getSchemaClientCode(paths: PathsObject) {
       const paramList = [
         allParams.length
           ? `params: { ${allParams
-              .map(({ name, type }) => `${name}: ${type}`)
+              .map(
+                ({ name, type, required }) =>
+                  `${name}${!required ? "?" : ""}: ${type}`
+              )
               .join(", ")} }`
           : "",
         body ? "data: " + body : "",

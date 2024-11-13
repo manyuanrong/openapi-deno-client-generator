@@ -17,8 +17,8 @@ export class ApiClient {
   private async request(
     path: string,
     method: string,
-    pathsParams: Record<string, string>,
-    queryParams: Record<string, any>,
+    pathsParams: any,
+    queryParams: any,
     body: any
   ): Promise<any> {
     for (const parameter in pathsParams) {

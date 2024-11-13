@@ -143,8 +143,8 @@ export class ApiClient {
   private async request(
     path: string,
     method: string,
-    pathsParams: Record<string, string>,
-    queryParams: Record<string, any>,
+    pathsParams: any,
+    queryParams: any,
     body: any
   ): Promise<any> {
     for (const parameter in pathsParams) {
@@ -176,11 +176,11 @@ export class ApiClient {
    * 通过查询参数获取表格列表
    */
   async searchSheets(params: {
-    conversationId: string;
-    keyword: string;
-    structureId: string;
-    page: number;
-    size: number;
+    conversationId?: string;
+    keyword?: string;
+    structureId?: string;
+    page?: number;
+    size?: number;
   }): Promise<Sheet[]> {
     const { conversationId, keyword, structureId, page, size } = params;
     return await this.request(
@@ -198,8 +198,8 @@ export class ApiClient {
   async findSheetSingle(params: {
     name: string;
     conversationId: string;
-    creatorId: string;
-    structureId: string;
+    creatorId?: string;
+    structureId?: string;
   }): Promise<SheetSingle> {
     const { name, conversationId, creatorId, structureId } = params;
     return await this.request(
@@ -275,11 +275,11 @@ export class ApiClient {
    */
   async searchRows(params: {
     sheetId: string;
-    afterIndex: number;
-    filters: SearchRowsFilterInput[];
-    sorter: SearchRowsSortInput;
-    page: number;
-    size: number;
+    afterIndex?: number;
+    filters?: SearchRowsFilterInput[];
+    sorter?: SearchRowsSortInput;
+    page?: number;
+    size?: number;
   }): Promise<Row[]> {
     const { sheetId, afterIndex, filters, sorter, page, size } = params;
     return await this.request(
