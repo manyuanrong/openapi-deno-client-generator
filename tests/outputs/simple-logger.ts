@@ -27,11 +27,26 @@ export class ApiClient {
     for (const parameter in pathsParams) {
       path = path.replace("{" + parameter + "}", pathsParams[parameter]);
     }
-    Object.keys(queryParams).forEach(
-      (key) => queryParams[key] === undefined && delete queryParams[key],
-    );
-    if (Object.keys(queryParams).length > 0) {
-      path += "?" + new URLSearchParams(queryParams).toString();
+    const query: string[] = [];
+    Object.keys(queryParams).forEach((key) => {
+      if (queryParams[key] !== undefined) {
+        if (typeof queryParams[key] === "object") {
+          if (Array.isArray(queryParams[key])) {
+            for (const item of queryParams[key]) {
+              query.push(key + "=" + encodeURIComponent(JSON.stringify(item)));
+            }
+          } else {
+            query.push(
+              key + "=" + encodeURIComponent(JSON.stringify(queryParams[key])),
+            );
+          }
+        } else {
+          query.push(key + "=" + encodeURIComponent(String(queryParams[key])));
+        }
+      }
+    });
+    if (query.length > 0) {
+      path += "?" + query.join("&");
     }
     const response = await this.fetch(this.baseUrl + path, {
       method,
