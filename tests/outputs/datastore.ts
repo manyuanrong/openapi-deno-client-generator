@@ -172,19 +172,27 @@ export class ApiClient {
    * 创建新的表格
    */
   async createSheet(data: CreateSheetInput): Promise<SheetSingle> {
-    return await this.request("/datastore/sheets/", "POST", {}, {}, data);
+    return await this.request(
+      "/datastore/sheets/",
+      "POST",
+      {},
+      {},
+      data,
+    );
   }
 
   /**
    * 通过查询参数获取表格列表
    */
-  async searchSheets(params: {
-    conversationId?: string;
-    keyword?: string;
-    structureId?: string;
-    page?: number;
-    size?: number;
-  }): Promise<Sheet[]> {
+  async searchSheets(
+    params: {
+      conversationId?: string;
+      keyword?: string;
+      structureId?: string;
+      page?: number;
+      size?: number;
+    },
+  ): Promise<Sheet[]> {
     const { conversationId, keyword, structureId, page, size } = params;
     return await this.request(
       "/datastore/sheets/",
@@ -198,12 +206,14 @@ export class ApiClient {
   /**
    * 通过查询参数获取表格
    */
-  async findSheetSingle(params: {
-    name: string;
-    conversationId: string;
-    creatorId?: string;
-    structureId?: string;
-  }): Promise<SheetSingle> {
+  async findSheetSingle(
+    params: {
+      name: string;
+      conversationId: string;
+      creatorId?: string;
+      structureId?: string;
+    },
+  ): Promise<SheetSingle> {
     const { name, conversationId, creatorId, structureId } = params;
     return await this.request(
       "/datastore/sheets/single",
@@ -276,14 +286,16 @@ export class ApiClient {
   /**
    * 通过查询参数获取多行数据
    */
-  async searchRows(params: {
-    sheetId: string;
-    afterIndex?: number;
-    filters?: SearchRowsFilterInput[];
-    sorter?: SearchRowsSortInput;
-    page?: number;
-    size?: number;
-  }): Promise<Row[]> {
+  async searchRows(
+    params: {
+      sheetId: string;
+      afterIndex?: number;
+      filters?: SearchRowsFilterInput[];
+      sorter?: SearchRowsSortInput;
+      page?: number;
+      size?: number;
+    },
+  ): Promise<Row[]> {
     const { sheetId, afterIndex, filters, sorter, page, size } = params;
     return await this.request(
       "/datastore/sheets/{sheetId}/rows",
@@ -325,10 +337,9 @@ export class ApiClient {
   /**
    * 删除指定的行
    */
-  async deleteRow(params: {
-    sheetId: string;
-    rowId: string;
-  }): Promise<boolean> {
+  async deleteRow(
+    params: { sheetId: string; rowId: string },
+  ): Promise<boolean> {
     const { sheetId, rowId } = params;
     return await this.request(
       "/datastore/sheets/{sheetId}/rows/{rowId}",
@@ -343,14 +354,26 @@ export class ApiClient {
    * Version
    */
   async version(): Promise<any> {
-    return await this.request("/datastore/version", "GET", {}, {}, {});
+    return await this.request(
+      "/datastore/version",
+      "GET",
+      {},
+      {},
+      {},
+    );
   }
 
   /**
    * Create sheet job
    */
   async createSheetJob(): Promise<boolean> {
-    return await this.request("/datastore/jobs/", "POST", {}, {}, {});
+    return await this.request(
+      "/datastore/jobs/",
+      "POST",
+      {},
+      {},
+      {},
+    );
   }
 
   /**

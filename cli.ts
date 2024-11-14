@@ -15,4 +15,4 @@ if (spec.startsWith("http")) {
   data = JSON.parse(await Deno.readTextFile(spec));
 }
 
-await Deno.writeTextFile(out, generate(data));
+await Deno.writeTextFile(out, await generate(data));

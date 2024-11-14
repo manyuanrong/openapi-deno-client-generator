@@ -46,21 +46,39 @@ export class ApiClient {
    * Version
    */
   async version(): Promise<any> {
-    return await this.request("/api/version", "GET", {}, {}, {});
+    return await this.request(
+      "/api/version",
+      "GET",
+      {},
+      {},
+      {},
+    );
   }
 
   /**
    * 获取当前实例数量
    */
   async getCount(): Promise<any> {
-    return await this.request("/api/count", "GET", {}, {}, {});
+    return await this.request(
+      "/api/count",
+      "GET",
+      {},
+      {},
+      {},
+    );
   }
 
   /**
    * 租用实例
    */
   async lease(data: any): Promise<BrowserLeaseOutput> {
-    return await this.request("/api/lease", "POST", {}, {}, data);
+    return await this.request(
+      "/api/lease",
+      "POST",
+      {},
+      {},
+      data,
+    );
   }
 
   /**
